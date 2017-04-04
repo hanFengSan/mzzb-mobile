@@ -2931,6 +2931,10 @@ react-native-tab-view@^0.0.57:
   version "0.0.57"
   resolved "http://registry.npm.taobao.org/react-native-tab-view/download/react-native-tab-view-0.0.57.tgz#715e2ea4100fa50168e134df3947dd76ebd55743"
 
+react-native-tab-view@^0.0.58:
+  version "0.0.58"
+  resolved "http://registry.npm.taobao.org/react-native-tab-view/download/react-native-tab-view-0.0.58.tgz#f61633fb1e515a45a684fb4bb8526a4936c3c480"
+
 react-native@0.42.3:
   version "0.42.3"
   resolved "http://registry.npm.taobao.org/react-native/download/react-native-0.42.3.tgz#450c8a03a5e3e991a08a426f22776dd8feb80b26"

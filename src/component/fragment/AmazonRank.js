@@ -2,8 +2,9 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Image, Button} from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
+import {TabViewAnimated, TabBar} from 'react-native-tab-view'
 
-export default class Splash extends Component {
+export default class AmazonRank extends Component {
 
     static navigationOptions = {
         title: '日亚排名',
@@ -26,32 +27,62 @@ export default class Splash extends Component {
         }
     };
 
+    state = {
+        index: 0,
+        routes: [
+            {key: '1', title: '实时TOP100'},
+            {key: '2', title: '4月新番'},
+            {key: '3', title: '1月新番'},
+            {key: '4', title: '1月新番'},
+            {key: '5', title: '1月新番'},
+        ],
+    };
+
+    _handleChangeTab = (index) => {
+        this.setState({index});
+    };
+
+    _renderHeader = (props) => {
+        return <TabBar
+            {...props}
+            tabStyle={{height: 42}}
+            pressOpacity={1}
+            pressColor='#3498db'
+            style={{backgroundColor: '#fff'}}
+            indicatorStyle={{backgroundColor: '#3498db', zIndex: 1000, height: 2, opacity: 1}}
+            scrollEnabled={true}
+            // tabWidth="50"
+            labelStyle={{color: 'rgba(0,0,0,0.6)'}}
+        />;
+    };
+
+    _renderScene = ({route}) => {
+        switch (route.key) {
+            case '1':
+                return <View style={[styles.page, {backgroundColor: '#1abc9c'}]}/>;
+            case '2':
+                return <View style={[styles.page, {backgroundColor: '#2ecc71'}]}/>;
+            case '3':
+                return <View style={[styles.page, {backgroundColor: '#9b59b6'}]}/>;
+            default:
+                return null;
+        }
+    };
+
     componentDidMount() {
         setTimeout(() => SplashScreen.hide(), 500);
     }
 
     render() {
-        const {navigate} = this.props.navigation;
         return (
-            <TouchableOpacity
+            <TabViewAnimated
                 style={styles.container}
-            >
-                <View >
-                    <Text style={styles.item}>
-                        SplashScreen 启动屏
-                    </Text>
-                    <Text style={styles.item}>
-                        @：http://www.devio.org/
-                    </Text>
-                    <Text style={styles.item}>
-                        GitHub:https://github.com/crazycodeboy
-                    </Text>
-                    <Text style={styles.item}>
-                        Email:crazycodeboy@gmail.com
-                    </Text>
-                </View>
-            </TouchableOpacity>
-        )
+                navigationState={this.state}
+                renderScene={this._renderScene}
+                renderHeader={this._renderHeader}
+                onRequestChangeTab={this._handleChangeTab}
+            />
+        );
     }
 
 }
@@ -72,5 +103,10 @@ const styles = StyleSheet.create({
     icon: {
         width: 26,
         height: 26,
+    },
+    page: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 });
