@@ -1,6 +1,6 @@
 // 主页
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image, Button } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, Image, Button, ListView } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import { TabViewAnimated, TabBar } from 'react-native-tab-view'
 import JSONReqService from '../../service/request/JSONReqService'
@@ -31,13 +31,7 @@ export default class AmazonRank extends Component {
     state = {
         index: 0,
         dataList: null,
-        routes: [
-            { key: '1', title: '实时TOP100' },
-            { key: '2', title: '4月新番' },
-            { key: '3', title: '1月新番' },
-            { key: '4', title: '1月新番' },
-            { key: '5', title: '1月新番' },
-        ],
+        routes: null
     };
 
     _handleChangeTab = (index) => {
@@ -53,22 +47,22 @@ export default class AmazonRank extends Component {
             style={{ backgroundColor: '#fff' }}
             indicatorStyle={{ backgroundColor: '#3498db', zIndex: 1000, height: 2, opacity: 1 }}
             scrollEnabled={true}
-            // tabWidth="50"
             labelStyle={{ color: 'rgba(0,0,0,0.6)' }}
         />;
     };
 
     _renderScene = ({ route }) => {
-        switch (route.key) {
-            case '1':
-                return <View style={[styles.page, { backgroundColor: '#1abc9c' }]} />;
-            case '18':
-                return <View style={[styles.page, { backgroundColor: '#2ecc71' }]} />;
-            case '20':
-                return <View style={[styles.page, { backgroundColor: '#9b59b6' }]} />;
-            default:
-                return null;
-        }
+        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id });
+        const dataSource = ds.cloneWithRows(this.state.dataList.filter(i => route.key === i.id.toString())[0].discs);
+        return (
+            <ListView
+                style={styles.page}
+                contentContainerStyle={[styles.pageContent]}
+                dataSource={dataSource}
+                renderRow={(rowData => <View style={styles.row}><Text>{rowData.title}</Text></View>)}>
+
+            </ListView >
+        )
     };
 
     componentDidMount() {
@@ -80,10 +74,10 @@ export default class AmazonRank extends Component {
                 const routes = res.map(item => {
                     return {
                         key: item.id.toString(),
-                        title: item.title
+                        title: item.title.replace('日亚', '').replace(/^.*?年[0]/, '')
                     }
                 })
-                this.setState({dataList: res, routes});
+                this.setState({ dataList: res, routes });
             })
     }
 
@@ -126,9 +120,20 @@ const styles = StyleSheet.create({
         width: 26,
         height: 26,
     },
-    page: {
-        flex: 1,
+    pageContent: {
         alignItems: 'center',
         justifyContent: 'center',
     },
+    page: {
+        backgroundColor: '#f3f2f2',
+        flex: 1,
+        height: 10000,
+    },
+    row: {
+        flexDirection: 'row',
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        padding: 10,
+        height: 42
+    }
 });
