@@ -52,15 +52,38 @@ export default class AmazonRank extends Component {
     };
 
     _renderScene = ({ route }) => {
+        const list = this.state.dataList.filter(i =>
+            route.key === i.id.toString())[0]
+            .discs;
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id });
-        const dataSource = ds.cloneWithRows(this.state.dataList.filter(i => route.key === i.id.toString())[0].discs);
+        const dataSource = ds.cloneWithRows(list);
+        let numNode = (row) => {
+            if ((row.curk || 0).toString().length + (row.prrk || 0).toString().length < 7) {
+                return (
+                    <View>
+                        <Text style={styles.num}>{`${(row.curk || '--')}/${(row.prrk || '--')}`}</Text>
+                    </View>
+                );
+            } else {
+                return (
+                    <View>
+                        <Text style={styles.num}>{(row.curk || '--')}</Text>
+                        <Text style={styles.num}>{(row.prrk || '--')}</Text>
+                    </View>
+                )
+            }
+        }
         return (
             <ListView
                 style={styles.page}
                 contentContainerStyle={[styles.pageContent]}
                 dataSource={dataSource}
-                renderRow={(rowData => <View style={styles.row}><Text>{rowData.title}</Text></View>)}>
-
+                renderRow={(rowData =>
+                    <View style={styles.row}>
+                        {numNode(rowData)}
+                        <Text numberOfLines={1} style={styles.title}>{rowData.title}</Text>
+                        <Text style={styles.trend}>上升</Text>
+                    </View>)}>
             </ListView >
         )
     };
@@ -121,19 +144,38 @@ const styles = StyleSheet.create({
         height: 26,
     },
     pageContent: {
-        alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
     },
     page: {
-        backgroundColor: '#f3f2f2',
+        backgroundColor: '#fff',
         flex: 1,
         height: 10000,
     },
+    num: {
+        width: 50,
+        fontSize: 12,
+        fontWeight: 'bold',
+        color: 'rgba(0,0,0,0.3)'
+    },
+    trend: {
+        width: 50,
+    },
+    title: {
+        fontSize: 12,
+        flexDirection: 'column',
+        flex: 0.8,
+        flexWrap: "wrap",
+        overflow: 'hidden',
+    },
     row: {
         flexDirection: 'row',
-        // justifyContent: 'center',
-        // alignItems: 'center',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
         padding: 10,
-        height: 42
+        height: 62,
+        borderStyle: 'solid',
+        borderBottomWidth: 1,
+        borderBottomColor: 'rgba(0,0,0,0.1)'
     }
 });
