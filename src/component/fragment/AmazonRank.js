@@ -24,7 +24,7 @@ export default class AmazonRank extends Component {
             //     style={{width: 26, height: 26, marginRight: 5}}
             // />,
             style: { backgroundColor: '#3498db' },
-            titleStyle: { color: '#ffffff' },
+            titleStyle: { color: '#ffffff' }
         }
     };
 
