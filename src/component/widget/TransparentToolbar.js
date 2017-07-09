@@ -2,14 +2,15 @@
 import React, { Component } from 'react';
 import { Text, Image, View, StatusBar, StyleSheet, Platform, Dimensions } from 'react-native';
 import DU from 'light/src/util/DimenUtil';
+import Color from 'light/src/assets/value/Color';
 
 export default class TransparentToolbar extends Component {
     render() {
         return (
             <View style={styles.container}>
                 <StatusBar translucent={true} backgroundColor={'transparent'} barStyle='light-content' />
-                <View style={styles.statusBar}></View>
-                <View style={styles.toolbar}>
+                <View style={[styles.statusBar, { backgroundColor: this.props.statusBarColor }]}></View>
+                <View style={[styles.toolbar, { backgroundColor: this.props.appBarColor }]}>
                     <View style={Platform.OS === 'ios' ? styles.iosTitleContainer : styles.androidTitleContainer}>
                         <Text style={styles.title}>{this.props.title}</Text>
                     </View>
@@ -30,6 +31,7 @@ const styles = StyleSheet.create({
         zIndex: 1000
     },
     statusBar: {
+        backgroundColor: 'transparent',
         height: DU.STATUSBAR_HEIGHT
     },
     toolbar: {
