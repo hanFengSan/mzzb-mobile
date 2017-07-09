@@ -36,7 +36,7 @@ export default class NewsCard extends Component {
                     <View style={styles.content}>
                         <View style={styles.textContainer} onLayout={this.resizeImage.bind(this)}>
                             <Text ellipsizeMode={'tail'} numberOfLines={1} allowFontScaling={false} style={styles.title}>{this.props.title}</Text>
-                            <Text ellipsizeMode={'tail'} numberOfLines={2} allowFontScaling={false} style={styles.intro}>{this.props.intro.replace(/\n/g, '') + '\n'}</Text>
+                            <Text ellipsizeMode={'tail'} numberOfLines={1} allowFontScaling={false} style={styles.intro}>{this.props.intro.replace(/\n/g, '')}</Text>
                             <Text ellipsizeMode={'tail'} numberOfLines={1} allowFontScaling={false} style={styles.info}>{this.props.info}</Text>
                         </View>
                         <View style={styles.imageContainer}>

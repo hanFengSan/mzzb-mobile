@@ -48,6 +48,5 @@ const styles = StyleSheet.create({
         flex: 1
     },
     scrollView: {
-        height: 2000
     }
 });

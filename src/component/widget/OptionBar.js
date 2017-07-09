@@ -9,10 +9,10 @@ export default class OptionBar extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <OptionItem name='分类资源' type='branch'></OptionItem>
-                <OptionItem name='科普活动' type='user'></OptionItem>
-                <OptionItem name='在线测试' type='test'></OptionItem>
-                <OptionItem name='搜索资源' type='search'></OptionItem>
+                <OptionItem name='日亚排名' type='branch'></OptionItem>
+                <OptionItem name='销量日榜' type='user'></OptionItem>
+                <OptionItem name='销量周榜' type='test'></OptionItem>
+                <OptionItem name='销量查询' type='search'></OptionItem>
             </View>
         );
     }
@@ -27,16 +27,16 @@ class OptionItem extends Component {
         let iconSrc = '';
         switch (this.props.type) {
             case 'branch':
-                iconSrc = require('light/src/assets/icon/ic_branch.png');
+                iconSrc = require('light/src/assets/icon/ic_amazon.png');
                 break;
             case 'search':
-                iconSrc = require('light/src/assets/icon/ic_search.png');
+                iconSrc = require('light/src/assets/icon/ic_search2.png');
                 break;
             case 'test':
-                iconSrc = require('light/src/assets/icon/ic_test.png');
+                iconSrc = require('light/src/assets/icon/ic_rank2.png');
                 break;
             case 'user':
-                iconSrc = require('light/src/assets/icon/ic_user.png');
+                iconSrc = require('light/src/assets/icon/ic_rank.png');
                 break;
         }
         return (
