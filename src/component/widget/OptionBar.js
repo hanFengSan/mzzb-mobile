@@ -44,7 +44,7 @@ class OptionItem extends Component {
                 <View style={styles.itemContainer}>
                     <View style={styles.item}>
                         <Image source={iconSrc} style={styles.icon}></Image>
-                        <Text style={styles.text}>{this.props.name}</Text>
+                        <Text allowFontScaling={false} style={styles.text}>{this.props.name}</Text>
                     </View>
                 </View>
             </ClickableItem>
@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     },
     text: {
         marginTop: 5,
-        fontSize: 12
+        fontSize: 12,
+        color: Color.primaryTextColor
     }
 });

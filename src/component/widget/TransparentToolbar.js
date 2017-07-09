@@ -12,7 +12,7 @@ export default class TransparentToolbar extends Component {
                 <View style={[styles.statusBar, { backgroundColor: this.props.statusBarColor }]}></View>
                 <View style={[styles.toolbar, { backgroundColor: this.props.appBarColor }]}>
                     <View style={Platform.OS === 'ios' ? styles.iosTitleContainer : styles.androidTitleContainer}>
-                        <Text style={styles.title}>{this.props.title}</Text>
+                        <Text allowFontScaling={false} style={styles.title}>{this.props.title}</Text>
                     </View>
                     <View style={styles.optionContainer}>
                         <Image style={styles.more} source={require('light/src/assets/icon/more_white.png')} />
