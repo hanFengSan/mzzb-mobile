@@ -8,6 +8,7 @@ import NewsCard from 'light/src/component/widget/NewsCard';
 import HomeBanner from 'light/src/component/widget/HomeBanner';
 import OptionBar from 'light/src/component/widget/OptionBar';
 import TransparentScrollActivity from 'light/src/component/page/base/TransparentScrollActivity';
+import ImageSet from 'light/src/assets/value/ImageSet';
 
 export default class Home extends Component {
     static navigationOptions = {
@@ -20,8 +21,20 @@ export default class Home extends Component {
     render() {
         return (
             <TransparentScrollActivity title='名作之壁'>
-                <HomeBanner src={require('light/src/assets/image/banner2.jpg')}/>
-                <OptionBar />
+                <HomeBanner src={ImageSet.banner_2} text={'灯曰: 原创的魅力就在意其不可预测性'} />
+                {/*<View style={styles.optionBar}></View>*/}
+                <OptionBar dataset={[
+                    { key: '日亚排名', icon: ImageSet.ic_amazon },
+                    { key: '销量日榜', icon: ImageSet.ic_d_rank },
+                    { key: '销量周榜', icon: ImageSet.ic_w_rank },
+                    { key: '销量查询', icon: ImageSet.ic_search },
+                ]} />
+                <OptionBar dataset={[
+                    { key: '壁吧视频', icon: ImageSet.ic_movie },
+                    { key: '壁吧资讯', icon: ImageSet.ic_read },
+                    { key: '壁吧产品', icon: ImageSet.ic_info },
+                    { key: '更多', icon: ImageSet.ic_more },
+                ]} />
                 <ListTagHeader text={'今日推荐'} />
                 <NewsCard title={'【HOHO】07月09日Amazon七月新番排名'} intro={'今晚有骑士与魔法，人马小姐不迷茫，Princess Principal，洁癖男子！青山君和战斗女子学园大家今晚看什么？'} info={'2017月07日07日'} src={require('light/src/assets/image/banner2.jpg')} />
                 <NewsCard title={'【排行】历代声优/动漫歌手CD总销量TOP30'} intro={'因系统敏感删帖，就放视频号吧, 第一次尝试做数据视频，有兴趣因系统敏感删帖，就放视频号吧因系统敏感删帖，就放视频号吧'} info={'2017月07日07日'} src={require('light/src/assets/image/banner.jpg')} />
@@ -42,5 +55,8 @@ const styles = StyleSheet.create({
     banner: {
         height: 223,
         width: DU.SCREEN_WIDTH
+    },
+    optionBar: {
+        marginTop: 8
     }
 });

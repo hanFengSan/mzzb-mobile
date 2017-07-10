@@ -15,7 +15,7 @@ export default class HomeBanner extends Component {
                     source={this.props.src}
                 />
                 <View style={styles.infoContainer}>
-                    <Text style={styles.text}>{'球总三连: 逆天! 神回! 起航!'}</Text>
+                    <Text style={styles.text}>{this.props.text}</Text>
                 </View>
             </View>
         );

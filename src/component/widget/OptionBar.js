@@ -7,12 +7,13 @@ import ClickableItem from 'light/src/component/widget/base/ClickableItem';
 
 export default class OptionBar extends Component {
     render() {
+        let list = this.props.dataset.reduce((sum, item) => {
+            sum.push(<OptionItem key={item.key} name={item.key} icon={item.icon}></OptionItem>);
+            return sum;
+        }, []);
         return (
             <View style={styles.container}>
-                <OptionItem name='日亚排名' type='branch'></OptionItem>
-                <OptionItem name='销量日榜' type='user'></OptionItem>
-                <OptionItem name='销量周榜' type='test'></OptionItem>
-                <OptionItem name='销量查询' type='search'></OptionItem>
+                {list}
             </View>
         );
     }
@@ -24,26 +25,11 @@ class OptionItem extends Component {
     }
 
     render() {
-        let iconSrc = '';
-        switch (this.props.type) {
-            case 'branch':
-                iconSrc = require('light/src/assets/icon/ic_amazon.png');
-                break;
-            case 'search':
-                iconSrc = require('light/src/assets/icon/ic_search2.png');
-                break;
-            case 'test':
-                iconSrc = require('light/src/assets/icon/ic_rank2.png');
-                break;
-            case 'user':
-                iconSrc = require('light/src/assets/icon/ic_rank.png');
-                break;
-        }
         return (
             <ClickableItem onClick={this.clickItem}>
                 <View style={styles.itemContainer}>
                     <View style={styles.item}>
-                        <Image source={iconSrc} style={styles.icon}></Image>
+                        <Image source={this.props.icon} style={styles.icon}></Image>
                         <Text allowFontScaling={false} style={styles.text}>{this.props.name}</Text>
                     </View>
                 </View>
@@ -55,7 +41,6 @@ class OptionItem extends Component {
 const styles = StyleSheet.create({
     container: {
         height: 70,
-        marginTop: 8,
         backgroundColor: 'white',
         flexDirection: 'row'
     },
