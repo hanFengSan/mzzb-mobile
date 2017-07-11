@@ -14,9 +14,7 @@ import { StackNavigator } from 'react-navigation';
 export default class Home extends Component {
     static navigationOptions = {
         title: '名作之壁',
-        header: {
-            visible: false
-        }
+        header: null
     };
 
     render() {

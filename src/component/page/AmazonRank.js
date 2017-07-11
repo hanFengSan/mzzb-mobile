@@ -14,9 +14,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 export default class AmazonRank extends Component {
     static navigationOptions = {
         title: '日亚排名',
-        header: {
-            visible: false
-        },
+        header: null
 
     };
 
