@@ -13,9 +13,7 @@ import { StackNavigator, Transitioner } from 'react-navigation';
 export default class AmazonRank extends Component {
     static navigationOptions = {
         title: '日亚排名',
-        header: {
-            visible: false
-        },
+        header: null
 
     };
 
