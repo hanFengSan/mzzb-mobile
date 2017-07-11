@@ -1,8 +1,8 @@
 export default {
-    primaryColor: '#3498db',
-    accentColor: '#2980b9',
-    clickBgColor: '#3498db50',
-    primaryTextColor: '#7d7d7d',
-    accentTextColor: 'black',
-    textGrey: '#666666'
+    primary_color: '#3498db',
+    accent_color: '#2980b9',
+    click_bg_color: '#3498db50',
+    primary_text_color: '#7d7d7d',
+    accent_text_color: 'black',
+    text_grey: '#666666'
 };

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Text, Image, View, StatusBar, StyleSheet, Platform, Dimensions, ScrollView } from 'react-native';
 import DU from 'light/src/util/DimenUtil';
 import ColorUtil from 'light/src/util/ColorUtil';
-import TransparentToolbar from 'light/src/component/widget/TransparentToolbar';
+import CustomToolbar from 'light/src/component/widget/CustomToolbar';
 import OptionBar from 'light/src/component/widget/OptionBar';
 import Color from 'light/src/assets/value/Color';
 
@@ -11,14 +11,14 @@ export default class TransparentScrollActivity extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            statusBarColor: ColorUtil.setAlpha(Platform.OS === 'ios' ? Color.primaryColor : Color.accentColor, 0),
-            appBarColor: ColorUtil.setAlpha(Color.primaryColor, 0)
+            statusBarColor: ColorUtil.setAlpha(Platform.OS === 'ios' ? Color.primary_color : Color.accent_color, 0),
+            appBarColor: ColorUtil.setAlpha(Color.primary_color, 0)
         };
     }
 
     _handleScroll(event) {
         let offset = Math.abs(event.nativeEvent.contentOffset.y * 2);
-        if (ColorUtil.getAlpha(this.state.appBarColor) !== 255 && offset <255) {
+        if (ColorUtil.getAlpha(this.state.appBarColor) !== 255 || offset < 255) {
             this.setState((previousState) => {
                 return {
                     statusBarColor: ColorUtil.setAlpha(previousState.statusBarColor, offset > 255 ? 255 : offset),
@@ -31,7 +31,7 @@ export default class TransparentScrollActivity extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TransparentToolbar title={this.props.title} appBarColor={this.state.appBarColor}
+                <CustomToolbar title={this.props.title} appBarColor={this.state.appBarColor}
                     statusBarColor={this.state.statusBarColor} />
                 <ScrollView contentContainerStyle={styles.scrollView}
                     scrollEventThrottle={60}

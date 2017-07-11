@@ -24,13 +24,13 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     symbol: {
-        backgroundColor: Color.primaryColor,
+        backgroundColor: Color.primary_color,
         height: 16,
         width: 3
     },
     text: {
         fontSize: 12,
-        color: Color.primaryTextColor,
+        color: Color.primary_text_color,
         marginLeft: 5
     }
 });

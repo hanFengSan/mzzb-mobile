@@ -8,13 +8,13 @@ export default class ClickableItem extends Component {
     render() {
         if (Platform.OS === 'ios') {
             return (
-                <TouchableHighlight onPress={this.props.onClick} underlayColor={Color.clickBgColor}>
+                <TouchableHighlight onPress={this.props.onClick} underlayColor={Color.click_bg_color}>
                     {this.props.children}
                 </TouchableHighlight>
             );
         } else {
             return (
-                <TouchableNativeFeedback onPress={this.props.onClick} background={TouchableNativeFeedback.Ripple(Color.clickBgColor, false)}>
+                <TouchableNativeFeedback onPress={this.props.onClick} background={TouchableNativeFeedback.Ripple(Color.click_bg_color, false)}>
                     {this.props.children}
                 </TouchableNativeFeedback>
             );

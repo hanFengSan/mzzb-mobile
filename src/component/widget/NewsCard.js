@@ -70,17 +70,17 @@ const styles = StyleSheet.create({
     title: {
         marginBottom: 3,
         fontSize: 16,
-        color: Color.accentTextColor
+        color: Color.accent_text_color
     },
     intro: {
-        color: Color.textGrey,
+        color: Color.text_grey,
         fontSize: 12
     },
     info: {
         marginBottom: 5,
         lineHeight: 20,
         fontSize: 12,
-        color: Color.primaryColor,
+        color: Color.primary_color,
         includeFontPadding: false
     },
     imageContainer: {

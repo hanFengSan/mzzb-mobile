@@ -4,12 +4,26 @@ import { Text, Image, View, StatusBar, StyleSheet, Platform, Dimensions } from '
 import DU from 'light/src/util/DimenUtil';
 import Color from 'light/src/assets/value/Color';
 
-export default class TransparentToolbar extends Component {
+export default class CustomToolbar extends Component {
+    componentDidMount() {
+        if (Platform.OS !== 'ios') {
+            StatusBar.setTranslucent(true); // fix the bug of translucent effect no working in sometimes
+        }
+    }
+
+    getStatusBarView() {
+        if (Platform.OS === 'ios') {
+            return <View style={[styles.statusBar, { backgroundColor: this.props.statusBarColor }]}></View>
+        }
+    }
+
     render() {
         return (
             <View style={styles.container}>
-                <StatusBar translucent={true} backgroundColor={'transparent'} barStyle='light-content' />
-                <View style={[styles.statusBar, { backgroundColor: this.props.statusBarColor }]}></View>
+                <StatusBar translucent={true} backgroundColor={this.props.statusBarColor || 'transparent'} barStyle='light-content' />
+                {
+                    this.getStatusBarView()
+                }
                 <View style={[styles.toolbar, { backgroundColor: this.props.appBarColor }]}>
                     <View style={Platform.OS === 'ios' ? styles.iosTitleContainer : styles.androidTitleContainer}>
                         <Text allowFontScaling={false} style={styles.title}>{this.props.title}</Text>
@@ -40,6 +54,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         width: DU.SCREEN_WIDTH,
         justifyContent: 'center',
+        marginTop: Platform.OS === 'ios' ? 0 : DU.STATUSBAR_HEIGHT
         // backgroundColor: 'red'
     },
     iosTitleContainer: {

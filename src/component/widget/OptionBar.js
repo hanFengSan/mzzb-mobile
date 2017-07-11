@@ -4,11 +4,12 @@ import { Text, Image, View, StatusBar, StyleSheet, Platform, Dimensions, Touchab
 import DU from 'light/src/util/DimenUtil';
 import Color from 'light/src/assets/value/Color';
 import ClickableItem from 'light/src/component/widget/base/ClickableItem';
+import { StackNavigator } from 'react-navigation';
 
 export default class OptionBar extends Component {
     render() {
         let list = this.props.dataset.reduce((sum, item) => {
-            sum.push(<OptionItem key={item.key} name={item.key} icon={item.icon}></OptionItem>);
+            sum.push(<OptionItem key={item.key} name={item.key} icon={item.icon} onClick={item.onPress}></OptionItem>);
             return sum;
         }, []);
         return (
@@ -20,13 +21,9 @@ export default class OptionBar extends Component {
 }
 
 class OptionItem extends Component {
-    clickItem() {
-
-    }
-
     render() {
         return (
-            <ClickableItem onClick={this.clickItem}>
+            <ClickableItem onClick={this.props.onClick}>
                 <View style={styles.itemContainer}>
                     <View style={styles.item}>
                         <Image source={this.props.icon} style={styles.icon}></Image>
@@ -57,11 +54,11 @@ const styles = StyleSheet.create({
         height: 27,
         width: 27,
         marginTop: 5,
-        tintColor: Color.primaryColor
+        tintColor: Color.primary_color
     },
     text: {
         marginTop: 5,
         fontSize: 12,
-        color: Color.primaryTextColor
+        color: Color.primary_text_color    
     }
 });

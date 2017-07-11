@@ -2,13 +2,14 @@
 import React, { Component } from 'react';
 import { Text, Image, View, StatusBar, StyleSheet, Platform, Dimensions, ScrollView } from 'react-native';
 import DU from 'light/src/util/DimenUtil';
-import TransparentToolbar from 'light/src/component/widget/TransparentToolbar';
+import CustomToolbar from 'light/src/component/widget/CustomToolbar';
 import ListTagHeader from 'light/src/component/widget/ListTagHeader';
 import NewsCard from 'light/src/component/widget/NewsCard';
 import HomeBanner from 'light/src/component/widget/HomeBanner';
 import OptionBar from 'light/src/component/widget/OptionBar';
 import TransparentScrollActivity from 'light/src/component/page/base/TransparentScrollActivity';
 import ImageSet from 'light/src/assets/value/ImageSet';
+import { StackNavigator } from 'react-navigation';
 
 export default class Home extends Component {
     static navigationOptions = {
@@ -19,12 +20,13 @@ export default class Home extends Component {
     };
 
     render() {
+        const { navigate } = this.props.navigation;
         return (
             <TransparentScrollActivity title='名作之壁'>
                 <HomeBanner src={ImageSet.banner_2} text={'灯曰: 原创的魅力就在意其不可预测性'} />
                 {/*<View style={styles.optionBar}></View>*/}
                 <OptionBar dataset={[
-                    { key: '日亚排名', icon: ImageSet.ic_amazon },
+                    { key: '日亚排名', icon: ImageSet.ic_amazon, onPress: () => navigate('AmazonRank', {}) },
                     { key: '销量日榜', icon: ImageSet.ic_d_rank },
                     { key: '销量周榜', icon: ImageSet.ic_w_rank },
                     { key: '销量查询', icon: ImageSet.ic_search },
