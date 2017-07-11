@@ -9,6 +9,7 @@ import HomeBanner from 'light/src/component/widget/HomeBanner';
 import OptionBar from 'light/src/component/widget/OptionBar';
 import CustomToolbarActivity from 'light/src/component/page/base/CustomToolbarActivity';
 import { StackNavigator, Transitioner } from 'react-navigation';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 export default class AmazonRank extends Component {
     static navigationOptions = {
@@ -22,7 +23,11 @@ export default class AmazonRank extends Component {
     render() {
         return (
             <CustomToolbarActivity title='日亚排名'>
-
+                <ScrollableTabView>
+                    <ReactPage tabLabel="React" />
+                    <FlowPage tabLabel="Flow" />
+                    <JestPage tabLabel="Jest" />
+                </ScrollableTabView>
             </CustomToolbarActivity>
         );
     }
