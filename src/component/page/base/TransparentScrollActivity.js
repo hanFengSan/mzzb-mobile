@@ -31,7 +31,7 @@ export default class TransparentScrollActivity extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <CustomToolbar title={this.props.title} appBarColor={this.state.appBarColor}
+                <CustomToolbar title={this.props.title} mode='overlay' appBarColor={this.state.appBarColor}
                     statusBarColor={this.state.statusBarColor} />
                 <ScrollView contentContainerStyle={styles.scrollView}
                     scrollEventThrottle={60}

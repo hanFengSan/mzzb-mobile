@@ -17,9 +17,19 @@ export default class CustomToolbar extends Component {
         }
     }
 
+    getContainerStyle() {
+        switch (this.props.mode) {
+            case 'overlay':
+                return styles.overlayContainer;
+            case 'static':
+            default:
+                return styles.container;
+        }
+    }
+
     render() {
         return (
-            <View style={styles.container}>
+            <View style={this.getContainerStyle()}>
                 <StatusBar translucent={true} backgroundColor={this.props.statusBarColor || 'transparent'} barStyle='light-content' />
                 {
                     this.getStatusBarView()
@@ -39,6 +49,9 @@ export default class CustomToolbar extends Component {
 
 const styles = StyleSheet.create({
     container: {
+
+    },
+    overlayContainer: {
         position: 'absolute',
         top: 0,
         left: 0,

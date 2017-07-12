@@ -7,17 +7,13 @@ import CustomToolbar from 'light/src/component/widget/CustomToolbar';
 import OptionBar from 'light/src/component/widget/OptionBar';
 import Color from 'light/src/assets/value/Color';
 
-export default class TransparentScrollActivity extends Component {
+export default class CustomToolbarActivity extends Component {
     render() {
         return (
             <View style={styles.container}>
                 <CustomToolbar title={this.props.title} appBarColor={Color.primary_color}
-                    statusBarColor={Platform.OS === 'ios'? Color.primary_color : Color.accent_color} />
-                <ScrollView contentContainerStyle={styles.scrollView}
-                    scrollEventThrottle={60}
-                    showsVerticalScrollIndicator={false}>
-                    {this.props.children}
-                </ScrollView>
+                    statusBarColor={Platform.OS === 'ios' ? Color.primary_color : Color.accent_color} />
+                {this.props.children}
             </View>
         );
     }
