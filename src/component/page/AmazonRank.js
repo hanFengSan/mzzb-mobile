@@ -21,11 +21,7 @@ export default class AmazonRank extends Component {
     render() {
         return (
             <CustomToolbarActivity title='日亚排名'>
-                <ScrollableTabView>
-                    <ReactPage tabLabel="React" />
-                    <FlowPage tabLabel="Flow" />
-                    <JestPage tabLabel="Jest" />
-                </ScrollableTabView>
+
             </CustomToolbarActivity>
         );
     }
