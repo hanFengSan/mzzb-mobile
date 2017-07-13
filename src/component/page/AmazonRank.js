@@ -1,11 +1,13 @@
 /*eslint-disable*/
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { Text, Image, View, StatusBar, StyleSheet, Platform, Dimensions, ScrollView, FlatList } from 'react-native';
 import DU from 'light/src/util/DimenUtil';
+import TU from 'light/src/util/TextUtil';
 import CustomToolbar from 'light/src/component/widget/CustomToolbar';
 import ListTagHeader from 'light/src/component/widget/ListTagHeader';
 import NewsCard from 'light/src/component/widget/NewsCard';
 import HomeBanner from 'light/src/component/widget/HomeBanner';
+import DiscTag from 'light/src/component/widget/DiscTag';
 import OptionBar from 'light/src/component/widget/OptionBar';
 import CustomToolbarActivity from 'light/src/component/page/base/CustomToolbarActivity';
 import { StackNavigator, Transitioner } from 'react-navigation';
@@ -42,15 +44,34 @@ export default class AmazonRank extends Component {
                 tabLabel={rank.title}
                 data={rank.discs}
                 renderItem={this.renderItem}
+                ItemSeparatorComponent={this.renderSeparator}
             />
         );
     }
 
     renderItem({ item }) {
         return (
-            <View key={item.id}>
-                <Text>{item.sname}</Text>
+            <View key={item.id} style={styles.itemContainer}>
+                <View style={styles.content}>
+                    <Text style={styles.index}>{'001'}</Text>
+                    <Text style={styles.rank}>{'40/40'}</Text>
+                </View>
+                { // tag view
+                    item.type !== 0 ?
+                        <View style={styles.tag}>
+                            <DiscTag type={item.type} />
+                        </View>
+                        : null
+                }
             </View>
+        );
+    }
+
+    renderSeparator() {
+        return (
+            <View
+                style={styles.itemSeparator}
+            />
         );
     }
 
@@ -69,7 +90,7 @@ export default class AmazonRank extends Component {
                     tabBarActiveTextColor={'white'}
                     tabBarInactiveTextColor={'white'}
                     tabBarUnderlineStyle={{ backgroundColor: 'white' }}
-                    prerenderingSiblingsNumber={Infinity}
+                    prerenderingSiblingsNumber={2}
                     renderTabBar={() => <ScrollableTabBar />}
                 >
                     {tabs}
@@ -85,5 +106,36 @@ const styles = StyleSheet.create({
     tab: {
         backgroundColor: 'red',
         flex: 1
+    },
+    itemSeparator: {
+        height: DU.px2dp(2),
+        backgroundColor: Color.split_grey
+    },
+    itemContainer: {
+        backgroundColor: 'white'
+    },
+    content: {
+        height: 62,
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
+    tag: {
+        position: 'absolute',
+        top: 0,
+        left: 0
+    },
+    index: {
+        fontSize: 16,
+        marginLeft: 14,
+        color: Color.text_grey_dark,
+        includeFontPadding: false,
+        fontFamily: 'CenturyGothic-Bold'
+    },
+    rank: {
+        marginLeft: 8,
+        fontSize: 12,
+        color: Color.text_dark_grey,
+        includeFontPadding: false,
+        fontFamily: 'CenturyGothic-Bold'
     }
 });
