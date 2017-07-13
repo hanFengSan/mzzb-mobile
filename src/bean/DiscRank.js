@@ -6,23 +6,24 @@ export default class DiscRank {
     static TYPE_ND = 4; // 尼限&&DVD
 
     constructor(obj) {
+        this.index = obj.index;
         this.id = obj.id;
         this.name = obj.title;
         this.sName = obj.sname;
         this.updateDate = obj.stot;
         this.discType = obj.type; // 暂不知作用
         this.releaseDate = obj.release;
-        this.amazonRank = obj.arnk;
-        this.currentRank = obj.curk;
-        this.prevRank = obj.prrk;
-        this.prevRank1 = obj.rank1;
-        this.prevRank2 = obj.rank2;
-        this.prevRank3 = obj.rank3;
-        this.prevRank4 = obj.rank4;
-        this.prevRank5 = obj.rank5;
-        this.pt = obj.cupt;
+        this.amazonRank = obj.arnk || -1;
+        this.currentRank = obj.curk || -1;
+        this.prevRank = obj.prrk || -1;
+        this.prevRank1 = obj.rank1 || -1;
+        this.prevRank2 = obj.rank2 || -1;
+        this.prevRank3 = obj.rank3 || -1;
+        this.prevRank4 = obj.rank4 || -1;
+        this.prevRank5 = obj.rank5 || -1;
+        this.pt = obj.cupt || 0;
         this.latestPullDate = obj.atot;
-        this.nicoOrder = obj.cubk; // nico预约
+        this.nicoOrder = obj.cubk || 0; // nico预约
         this.saleDay = obj.sday; // 距离销售天数
         this.initType();
     }

@@ -9,5 +9,7 @@ export default {
     emerald: '#40d47e',
     soft_purple: '#6633cc',
     text_grey_dark: '#babbbd',
-    text_dark_grey: '#5c6061'
+    text_dark_grey: '#5c6061',
+    soft_red: '#e74c3c',
+    soft_yellow: '#f1c40f'
 };
