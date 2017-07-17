@@ -4,12 +4,13 @@ import { Text, Image, View, StatusBar, StyleSheet, Platform, Dimensions, ScrollV
 import DU from 'light/src/util/DimenUtil';
 import TU from 'light/src/util/TextUtil';
 import CustomToolbar from 'light/src/component/widget/CustomToolbar';
+import DropDownToolbar from 'light/src/component/widget/DropDownToolbar';
 import ListTagHeader from 'light/src/component/widget/ListTagHeader';
 import NewsCard from 'light/src/component/widget/NewsCard';
 import HomeBanner from 'light/src/component/widget/HomeBanner';
 import DiscTag from 'light/src/component/widget/DiscTag';
 import OptionBar from 'light/src/component/widget/OptionBar';
-import CustomToolbarActivity from 'light/src/component/page/base/CustomToolbarActivity';
+import DropDownToolbarActivity from 'light/src/component/page/base/DropDownToolbarActivity';
 import { StackNavigator, Transitioner } from 'react-navigation';
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
 import Test from 'light/src/component/page/Test';
@@ -24,14 +25,21 @@ export default class AmazonRank extends Component {
     };
 
     state = {
-        dataList: []
+        dataList: [],
+        index: 0,
+        dropDownItems: []
     };
 
     componentDidMount() {
+        this.update();
+    }
+
+    update() {
         API.getAmazonRank()
             .then((res) => {
                 this.setState({
-                    dataList: res
+                    dataList: res,
+                    dropDownItems: this.getDropDownItems(res)
                 });
             }, (err) => {
 
@@ -52,11 +60,11 @@ export default class AmazonRank extends Component {
 
     getSituationStyle(item) {
         if (item.currentRank < item.prevRank) {
-            return [styles.situation, { tintColor: Color.primary_color, transform: [{ rotate: '180deg' }]}]
+            return [styles.situation, { tintColor: Color.primary_color, transform: [{ rotate: '180deg' }] }]
         } else if (item.currentRank > item.prevRank) {
-            return [styles.situation, { tintColor: Color.soft_red}];
+            return [styles.situation, { tintColor: Color.soft_red }];
         } else {
-            return [styles.situation, { tintColor: Color.soft_yellow, transform: [{ rotate: '-90deg' }]}]
+            return [styles.situation, { tintColor: Color.soft_yellow, transform: [{ rotate: '-90deg' }] }]
         }
     }
 
@@ -65,7 +73,9 @@ export default class AmazonRank extends Component {
             <View key={item.id} style={styles.itemContainer}>
                 <View style={styles.content}>
                     <Text allowFontScaling={false} style={styles.index}>{TU.paddy(item.index + 1, 3)}</Text>
-                    <Text allowFontScaling={false} style={styles.rank}>{`${item.currentRank}/${item.prevRank}`}</Text>
+                    <Text allowFontScaling={false} style={styles.rank}>
+                        {`${item.currentRank === -1 ? '空难' : item.currentRank}/${item.prevRank === -1 ? '空难' : item.prevRank}`}
+                    </Text>
                     <View style={styles.rightContainer}>
                         <Image source={ImageSet.ic_arrow_downward} style={this.getSituationStyle(item)} />
                         <Text allowFontScaling={false} style={styles.pt}>{item.pt}</Text>
@@ -91,27 +101,45 @@ export default class AmazonRank extends Component {
         );
     }
 
+    getDropDownItems(dataList) {
+        return dataList.map(item => {
+            return {
+                id: item.id,
+                name: item.title
+            };
+        });
+    }
+
+    onValueChange(loc) {
+        this.setState({
+            index: this.state.dataList.indexOf(this.state.dataList.find(item => item.id === loc))
+        });
+    }
+
     render() {
-        let tabs = this.state.dataList.reduce((sum, item) => {
-            sum.push(this.renderTab(item));
-            return sum;
-        }, []);
+        // let tabs = this.state.dataList.reduce((sum, item) => {
+        //     sum.push(this.renderTab(item));
+        //     return sum;
+        // }, []);
         return (
-            <CustomToolbarActivity title={AmazonRank.navigationOptions.title}>
-                <ScrollableTabView
-                    scrollWithoutAnimation={true}
-                    style={styles.tabView}
-                    initialPage={0}
-                    tabBarBackgroundColor={Color.primary_color}
-                    tabBarActiveTextColor={'white'}
-                    tabBarInactiveTextColor={'white'}
-                    tabBarUnderlineStyle={{ backgroundColor: 'white' }}
-                    prerenderingSiblingsNumber={2}
-                    renderTabBar={() => <ScrollableTabBar />}
-                >
-                    {tabs}
-                </ScrollableTabView>
-            </CustomToolbarActivity>
+            <DropDownToolbarActivity title={AmazonRank.navigationOptions.title}
+                dropDownItems={this.state.dropDownItems}
+                onValueChange={this.onValueChange.bind(this)}>
+                {
+                    this.state.dataList.length === 0 ?
+                        <View style={styles.loading}>
+                            <Text style={styles.loadingText}>Loading...</Text>
+                        </View> :
+                        <FlatList
+                            key={this.state.dataList[this.state.index].id}
+                            data={this.state.dataList[this.state.index].discs}
+                            renderItem={this.renderItem.bind(this)}
+                            ItemSeparatorComponent={this.renderSeparator}
+                            keyExtractor={(item, index) => item.id}
+                            getItemLayout={(data, index) => ({ length: 62, offset: (62 + DU.px2dp(2)) * index - DU.px2dp(2), index })}
+                        />
+                }
+            </DropDownToolbarActivity>
         );
     }
 }
@@ -186,5 +214,14 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         textAlignVertical: 'center',
         color: Color.text_dark_grey
+    },
+    loading: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    loadingText: {
+        color: Color.primary_color,
+        fontSize: 16
     }
 });

@@ -5,8 +5,8 @@ import Test from './src/component/page/Test';
 import { StackNavigator } from 'react-navigation';
 
 const App = StackNavigator({
-    AmazonRank: { screen: AmazonRank },
     Home: { screen: Home },
+    AmazonRank: { screen: AmazonRank },
     Test: {screen: Test}
 }, { headerMode: 'screen' });
 

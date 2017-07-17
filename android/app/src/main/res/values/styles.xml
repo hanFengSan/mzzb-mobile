@@ -1,8 +1,31 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+        <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
+        <item name="colorControlNormal">#ffffff</item>
+        <item name="spinnerStyle">@style/Spinner</item>
+
+        <item name="colorPrimary">@color/PeterRiver</item>
+        <item name="colorPrimaryDark">@color/BelizeHole</item>
+        <item name="colorAccent">@color/PeterRiver</item>
+        <item name="android:windowAnimationStyle">@style/SwipeWindowAnimTheme</item>
+    </style>
+
+    <style name="Spinner" parent="Widget.AppCompat.Spinner">
+        <item name="android:dropDownHorizontalOffset">0dip</item>
+    </style>
+
+    <style name="SpinnerItem" parent="Theme.AppCompat.Light.NoActionBar">>
+    <item name="android:textSize">18dp</item>
+    <item name="android:paddingStart">0dp</item>
+    <item name="android:paddingEnd">0dp</item>
+    </style>
+
+    <style name="SwipeWindowAnimTheme" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/in_from_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/out_to_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/in_from_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/out_to_right</item>
     </style>
 
 </resources>
