@@ -25,7 +25,7 @@ export default class Home extends Component {
                 {/*<View style={styles.optionBar}></View>*/}
                 <OptionBar dataset={[
                     { key: '日亚排名', icon: ImageSet.ic_amazon, onPress: () => navigate('AmazonRank', {}) },
-                    { key: '销量日榜', icon: ImageSet.ic_d_rank },
+                    { key: '销量日榜', icon: ImageSet.ic_d_rank, onPress: () => navigate('DailyRank', {}) },
                     { key: '销量周榜', icon: ImageSet.ic_w_rank },
                     { key: '销量查询', icon: ImageSet.ic_search },
                 ]} />
